@@ -1,36 +1,45 @@
-import React from 'react'
+import React from 'react';
+import { useSnapshot } from 'valtio';
+import { state } from './Store';
 
 export const Overlay = () => {
-    return (
-        <Intro />
-    )
-}
+  const snap = useSnapshot(state);
+
+  return <Intro />;
+};
 
 function Intro() {
-    return (
-        <div className='container'>
-            <header>
-                <h1>React Three Fiber</h1>
-                <p>
-                    A React renderer for Three.js
-                </p>
-                <Customizer />
-            </header>
+  return (
+    <div className='container'>
+      <header>
+        <h1>React Three Fiber</h1>
+        <div className="contenedor--detalles">
+          
+
         </div>
-    )
+        <Customizer />
+      </header>
+    </div>
+  );
 }
 
 function Customizer() {
-    const colors = ['#ccc', '#EFBD4E', '#80c670', "#726de8", '#EF674E', '#353934']
-    return (
-        <section key={"custom"}>
-            <div className="customizer">
-                <div className="color-options">
-                    {colors.map((color) => (
-                        <div key={color} className='circle' style={{ backgroundColor: color }}></div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
+  const colors = state.colors;
+
+  return (
+    <section key={"custom"}>
+      <div className="customizer">
+        <div className="color-options">
+          {colors.map((color) => (
+            <div
+              key={color}
+              className='circle'
+              style={{ backgroundColor: color }}
+              onClick={() => { state.selectedColor = color }}
+            ></div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
